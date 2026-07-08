@@ -2,7 +2,7 @@
 # stacking ensemble with probability calibration.
 
 data:
-  csv_glob: data/raw/*.csv
+  csv_glob: data/raw/premier/*.csv
   date_column: Date
   target_column: FTR
 

@@ -55,7 +55,7 @@ async def upload_data(file: UploadFile = File(...)):
     if not file.filename.endswith(".csv"):
         raise HTTPException(status_code=400, detail="Only CSV files are allowed.")
     
-    data_dir = Path("data/raw")
+    data_dir = Path("data/raw/premier")
     data_dir.mkdir(parents=True, exist_ok=True)
     
     file_path = data_dir / file.filename
