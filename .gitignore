@@ -19,7 +19,7 @@ dist/
 
 # Local data outputs
 data/processed/*.csv
-models/*.joblib
+# models/*.joblib
 
 # OS files
 .DS_Store
