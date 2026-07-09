@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import { UploadCloud, CheckCircle, Activity, ChevronRight } from 'lucide-react';
+import { UploadCloud, CheckCircle, Activity, ChevronRight, Moon, Sun } from 'lucide-react';
 import './index.css';
 
 const TEAM_LOGOS: Record<string, string> = {
@@ -42,6 +42,15 @@ function App() {
   
   const [loading, setLoading] = useState(false);
   const [prediction, setPrediction] = useState<any>(null);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.remove('light-mode');
+    } else {
+      document.body.classList.add('light-mode');
+    }
+  }, [isDarkMode]);
   
   const [uploadStatus, setUploadStatus] = useState<'idle' | 'uploading' | 'success' | 'error'>('idle');
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -96,6 +105,9 @@ function App() {
 
   return (
     <div>
+      <div className="theme-toggle" onClick={() => setIsDarkMode(!isDarkMode)}>
+        {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
+      </div>
       <h1>StatStrike</h1>
       <p className="subtitle">AI-powered match predictions & betting analytics</p>
 
