@@ -21,6 +21,9 @@ function App() {
   const [uploadStatus, setUploadStatus] = useState<'idle' | 'uploading' | 'success' | 'error'>('idle');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Use the Render URL if deployed, otherwise fallback to local proxy
+  const API_URL = import.meta.env.VITE_API_BASE_URL || '/api';
+
   const handlePredict = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -30,7 +33,7 @@ function App() {
       const [year, month, day] = date.split('-');
       const formattedDate = `${day}/${month}/${year}`;
       
-      const res = await axios.post('/api/predict', {
+      const res = await axios.post(`${API_URL}/predict`, {
         home_team: homeTeam,
         away_team: awayTeam,
         date: formattedDate
@@ -55,7 +58,7 @@ function App() {
     
     setUploadStatus('uploading');
     try {
-      await axios.post('/api/upload', formData, {
+      await axios.post(`${API_URL}/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       setUploadStatus('success');
