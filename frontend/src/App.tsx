@@ -30,8 +30,8 @@ const TEAMS = Object.keys(TEAM_LOGOS).sort();
 
 function getConfidenceLevel(prob: number) {
   const maxProb = Math.max(prob, 1 - prob);
-  if (maxProb >= 0.7) return { label: 'High Confidence', class: 'confidence-high' };
-  if (maxProb >= 0.55) return { label: 'Moderate Confidence', class: 'confidence-med' };
+  if (maxProb >= 0.60) return { label: 'High Confidence', class: 'confidence-high' };
+  if (maxProb >= 0.53) return { label: 'Moderate Confidence', class: 'confidence-med' };
   return { label: 'Toss Up', class: 'confidence-low' };
 }
 
@@ -128,14 +128,14 @@ function App() {
             <div className="form-group">
               <label>Home Team</label>
               <select value={homeTeam} onChange={e => { setHomeTeam(e.target.value); setPrediction(null); }}>
-                {TEAMS.map(t => <option key={t} value={t}>{t}</option>)}
+                {TEAMS.filter(t => t !== awayTeam).map(t => <option key={t} value={t}>{t}</option>)}
               </select>
             </div>
             
             <div className="form-group">
               <label>Away Team</label>
               <select value={awayTeam} onChange={e => { setAwayTeam(e.target.value); setPrediction(null); }}>
-                {TEAMS.map(t => <option key={t} value={t}>{t}</option>)}
+                {TEAMS.filter(t => t !== homeTeam).map(t => <option key={t} value={t}>{t}</option>)}
               </select>
             </div>
             
