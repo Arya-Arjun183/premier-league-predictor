@@ -24,6 +24,7 @@ _FEATURE_FLAG_KEYS = (
     "include_fixture_congestion",
     "include_halftime",
     "include_opponent_adj",
+    "include_xg_actual",
 )
 
 

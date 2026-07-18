@@ -5,12 +5,13 @@ data:
 features:
   include_rest_days: true
   include_xg_proxy: false
-  include_elo: false
+  include_elo: true
   include_multi_window: true
-  include_discipline: false
+  include_discipline: true
   include_fixture_congestion: true
   include_halftime: false
-  include_opponent_adj: false
+  include_opponent_adj: true
+  include_xg_actual: true
 
 training:
   algorithm: stacking_ensemble

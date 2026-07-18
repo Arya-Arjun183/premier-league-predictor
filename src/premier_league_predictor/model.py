@@ -226,6 +226,7 @@ class CatBoostMultiClassClassifier(BaseEstimator, ClassifierMixin):
             l2_leaf_reg=3.0,
             random_seed=42,
             verbose=False,
+            auto_class_weights="Balanced",
         )
         self.label_encoder = LabelEncoder()
 
@@ -284,8 +285,8 @@ class StackingEnsembleClassifier(BaseEstimator, ClassifierMixin):
             
         self.model = StackingClassifier(
             estimators=[
-                ("logreg", _make_pipe(LogisticRegression(max_iter=1000))),
-                ("rf", _make_pipe(RandomForestClassifier(n_estimators=400, random_state=42))),
+                ("logreg", _make_pipe(LogisticRegression(max_iter=1000, class_weight="balanced"))),
+                ("rf", _make_pipe(RandomForestClassifier(n_estimators=400, random_state=42, class_weight="balanced"))),
                 (
                     "hgb",
                     _make_pipe(HistGradientBoostingClassifier(
@@ -299,7 +300,7 @@ class StackingEnsembleClassifier(BaseEstimator, ClassifierMixin):
                 ("cat", _make_pipe(CatBoostMultiClassClassifier())),
                 ("dixon_coles", DixonColesClassifier(target_type=dixon_coles_target)),
             ],
-            final_estimator=LogisticRegression(max_iter=1000),
+            final_estimator=LogisticRegression(max_iter=1000, class_weight="balanced"),
             stack_method="predict_proba",
             passthrough=False,
             cv=5,
